@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'bundler/setup'
+require 'chronic_duration'
 require 'slack-notifier'
 require 'open-uri'
 require 'icalendar'
@@ -44,9 +45,10 @@ ics.events.each do |event|
     end
   else
     if(away_end-Date.today > 0) then
-      msg += "#{first_name} is off today and for #{(away_end-Date.today).to_i} more days, returning #{return_day.strftime("%A")}.\n"
+      text_return = ChronicDuration.output((return_day - Date.today) * 60 * 60 * 24, :weeks => true, :format => :long, :units => 2)
+      msg += "#{first_name} is off today, returning in #{text_return}.\n"
     else
-      msg += "#{first_name} is off today, returning #{return_day.strftime("%A")}.\n"
+      msg += "#{first_name} is off today.\n"
     end
   end
 end
