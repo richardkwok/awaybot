@@ -1,8 +1,6 @@
-feed_url: https://freshbooks.bamboohr.com/feeds/feed.php?id=[feed id]
-slack_hook_url: https://hooks.slack.com/services/[hook url]
 major_announce:
   look_forward_days: 7
 minor_announce:
   look_forward_days: 2
-names:
-  Nickname: Name in Bamboo HR
+
+

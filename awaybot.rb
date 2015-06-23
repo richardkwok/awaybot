@@ -17,13 +17,13 @@ if(!cfg.has_key? "#{type}_announce") then
   Kernel.exit 1
 end
 
-ics_raw = URI.parse(cfg['feed_url']).read
+ics_raw = URI.parse(ENV['FEED_URL']).read
 ics = Icalendar.parse(ics_raw).first
 msg = ""
 ics.events.each do |event|
   name = (/[^\-]+/.match event.summary)[0].strip
-  next if !cfg['names'].has_value? name
-  first_name = cfg['names'].rassoc(name)[0]
+  next if !ENV['NAMES'].split(';').include? name
+  first_name = name
   away_start = event.dtstart - 0
   away_end = event.dtend - 1
   return_day = away_end + 1
@@ -54,5 +54,5 @@ ics.events.each do |event|
 end
 Kernel.exit(0) if !msg
 msg = "Good morning! Here's who's off for the next #{cfg["#{type}_announce"]['look_forward_days']} days.\n#{msg}"
-slack = Slack::Notifier.new cfg['slack_hook_url']
+slack = Slack::Notifier.new ENV['SLACK_HOOK_URL']
 slack.ping msg
