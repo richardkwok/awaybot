@@ -4,8 +4,8 @@
   "repository": "https://github.com/hutchic/awaybot",
   "keywords": ["slack", "slackbot", "away", "vacation"],
   "env": {
-    "FEED_URL": "Calendar feed"
-    "SLACK_HOOK_URL": "Slack remote control hook"
+    "FEED_URL": "Calendar feed",
+    "SLACK_HOOK_URL": "Slack remote control hook",
     "NAMES": "Comma separated list of names"
   }
 }
