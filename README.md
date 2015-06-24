@@ -2,6 +2,8 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+Schedule it to run daily via the [[heroku scheduler]](https://addons.heroku.com/scheduler)
+
 # Run it locally
 
 ```
