@@ -4,6 +4,8 @@
 
 Schedule it to run daily via the [[heroku scheduler]](https://addons.heroku.com/scheduler)
 
+Slack Incoming Webhook setup page - https://freshbooks.slack.com/services/new/incoming-webhook
+
 # Run it locally
 
 ```
