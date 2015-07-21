@@ -10,7 +10,7 @@ separated by semicolons
 7. Click Deploy for Free
 8. Once it's done deploying click `Manage App`
 9. Click the Edit button beside Add-ons
-10. Search for and add and save `Heroku Scheduler`
+10. Search for add and save `Heroku Scheduler`
 ![](https://lh3.googleusercontent.com/syeKOAMs7KJeNJNZU1C0np8b7zLViarMbTxclN3yMFc=w899-h257-no)
 11. Go to the (Heroku Scheduler)[https://scheduler.heroku.com/dashboard]
 12. Configure the Heroku Scheduler to run `ruby bin/awaybot.rb major` daily at `13:00 UTC`
