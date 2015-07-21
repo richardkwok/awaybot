@@ -15,13 +15,15 @@ separated by semicolons
 11. Go to the (Heroku Scheduler)[https://scheduler.heroku.com/dashboard]
 12. Configure the Heroku Scheduler to run `ruby bin/awaybot.rb major` daily at `13:00 UTC`
 
-Optionally but suggested connect the application to the gihub repository. Requires that you have access to the Github repository
+Optionally Connect the Application to Github
+============================================
 
-1. From the application Deploy->GitHub page click `Connect to GitHub`
+1. Requires that you have access to the Github repository (FreshBooks employees as in #dev)
+2. From the application Deploy->GitHub page click `Connect to GitHub`
 ![](https://lh3.googleusercontent.com/XskjDMkfdxOG2G9zjn2tmpSzef6qAZk0SSHl8KoQv4w=w922-h595-no)
-2. Grant the heroku app access to freshbooks/awaybot
+3. Grant the heroku app access to freshbooks/awaybot
 ![](https://lh3.googleusercontent.com/Yg3SHpDUS4YEcE1sy2UvrrDSIxSVRQEf37djKvVqrGQ=w923-h444-no)
-3. Click on `Enable Automatic Deploys`
+4. Click on `Enable Automatic Deploys`
 
 # Running it locally
 
