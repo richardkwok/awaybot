@@ -1,1 +1,1 @@
-worker: ruby awaybot.rb major
+worker: ruby bin/awaybot.rb major
