@@ -63,8 +63,9 @@ ics.events.each do |event|
     end
   end
 end
-Kernel.exit(0) unless msg
-msg = "Good morning! Here's who's off for the next" \
-  " #{cfg["#{type}_announce"]['look_forward_days']} days.\n#{msg}"
-slack = Slack::Notifier.new ENV['SLACK_HOOK_URL']
-slack.ping msg
+if msg != ''
+  msg = "Good morning! Here's who's off for the next" \
+    " #{cfg["#{type}_announce"]['look_forward_days']} days.\n#{msg}"
+  slack = Slack::Notifier.new ENV['SLACK_HOOK_URL']
+  slack.ping msg
+end
