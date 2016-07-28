@@ -10,6 +10,7 @@ require 'yaml'
 require 'date'
 require 'pp'
 
+puts 'Running...'
 cfg = YAML.load_file('awaybot.yaml')
 type = ARGV[0]
 unless cfg.key? "#{type}_announce"
@@ -21,6 +22,7 @@ ics_raw = URI.parse(ENV['FEED_URL']).read
 ics = Icalendar.parse(ics_raw).first
 msg = ''
 ics.events.each do |event|
+  puts event.summary if ENV['DEBUG']
   name = (/[^\-]+/.match event.summary)[0].strip
   next unless ENV['NAMES'].split(';').include? name
   first_name = name
@@ -68,6 +70,7 @@ today = Date.today
 if msg != '' && !today.saturday? && !today.sunday?
   msg = "Good morning! Here's who's off for the next" \
     " #{cfg["#{type}_announce"]['look_forward_days']} days.\n#{msg}"
+  puts msg
   slack = Slack::Notifier.new ENV['SLACK_HOOK_URL']
   slack.ping msg
 end
