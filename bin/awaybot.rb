@@ -18,13 +18,25 @@ unless cfg.key? "#{type}_announce"
   Kernel.exit 1
 end
 
+today = Date.today
+puts "Running for #{today}"
+
 ics_raw = URI.parse(ENV['FEED_URL']).read
 ics = Icalendar.parse(ics_raw).first
 msg = ''
+
+if ENV['DEBUG']
+  puts "Team:"
+  puts ENV['NAMES'].split(';')
+end
+
 ics.events.each do |event|
-  puts event.summary if ENV['DEBUG']
-  name = (/[^\-]+/.match event.summary)[0].strip
-  next unless ENV['NAMES'].split(';').include? name
+  puts "#{event.summary} (#{event.dtstart} - #{event.dtend})" if ENV['DEBUG']
+  name = (/[^\(]+/.match event.summary)[0].strip
+  unless ENV['NAMES'].split(';').include? name
+    puts "#{name} not in team"
+    next
+  end
   first_name = name
   away_start = event.dtstart - 0
   away_end = event.dtend - 1
@@ -38,14 +50,15 @@ ics.events.each do |event|
     away_duration -= 1 if date.saturday? || date.sunday?
   end
   look_range =
-    Date.today..(Date.today + cfg["#{type}_announce"]['look_forward_days'])
+    today..(today + cfg["#{type}_announce"]['look_forward_days'])
   next if (away_range.to_a & look_range.to_a).empty?
-  if away_start > Date.today
+  puts "Message calc..."
+  if away_start > today
     if away_duration == 1
       msg += "#{first_name} is off for the day on" \
         " #{away_start.strftime('%A, %B %e')}.\n"
     else
-      if Date.today.strftime('%A') == away_start.strftime('%A')
+      if today.strftime('%A') == away_start.strftime('%A')
         nxt = 'next '
       else
         nxt = ''
@@ -55,9 +68,9 @@ ics.events.each do |event|
         " #{away_end.strftime('%A, %B %e')}.\n"
     end
   else
-    if away_end - Date.today > 0
+    if away_end - today > 0
       text_return = ChronicDuration.output(
-        (return_day - Date.today) * 60 * 60 * 24, weeks: true, format: :long, units: 2
+        (return_day - today) * 60 * 60 * 24, weeks: true, format: :long, units: 2
       )
       msg += "#{first_name} is off today, returning in #{text_return}.\n"
     else
@@ -66,7 +79,6 @@ ics.events.each do |event|
   end
 end
 
-today = Date.today
 if msg != '' && !today.saturday? && !today.sunday?
   msg = "Good morning! Here's who's off for the next" \
     " #{cfg["#{type}_announce"]['look_forward_days']} days.\n#{msg}"
