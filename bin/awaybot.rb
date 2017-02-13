@@ -25,11 +25,14 @@ ics_raw = URI.parse(ENV['FEED_URL']).read
 ics = Icalendar.parse(ics_raw).first
 msg = ''
 
-puts ENV['NAMES'].split(';')
+if ENV['DEBUG']
+  puts "Team:"
+  puts ENV['NAMES'].split(';')
+end
 
 ics.events.each do |event|
   puts "#{event.summary} (#{event.dtstart} - #{event.dtend})" if ENV['DEBUG']
-  name = (/[^\-]+/.match event.summary)[0].strip
+  name = (/[^\(]+/.match event.summary)[0].strip
   unless ENV['NAMES'].split(';').include? name
     puts "#{name} not in team"
     next
