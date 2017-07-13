@@ -32,6 +32,7 @@ end
 
 ics.events.each do |event|
   puts "#{event.summary} (#{event.dtstart} - #{event.dtend})" if ENV['DEBUG']
+  # Summary in the form of: "FirstName LastName (Time off - 0.5 days)"
   name = (/[^\(]+/.match event.summary)[0].strip
   unless ENV['NAMES'].split(';').include? name
     puts "#{name} not in team"
@@ -45,6 +46,8 @@ ics.events.each do |event|
   return_day += 1 while return_day.saturday? || return_day.sunday?
   away_range = away_start..away_end
   away_duration = (away_end - away_start).to_i + 1
+  # Can't tell a partial day from the dates, but it is in the summary
+  partial_day = (/([0-9\.]+) day/.match event.summary)[1].to_i < 1
   # subtract any weekends from the duration
   away_range.each do |date|
     away_duration -= 1 if date.saturday? || date.sunday?
@@ -54,7 +57,10 @@ ics.events.each do |event|
   next if (away_range.to_a & look_range.to_a).empty?
   puts "Message calc..."
   if away_start > today
-    if away_duration == 1
+    if away_duration == 1 and partial_day
+      msg += "#{first_name} is off for part of the day on" \
+        " #{away_start.strftime('%A, %B %e')}.\n"
+    elsif away_duration == 1
       msg += "#{first_name} is off for the day on" \
         " #{away_start.strftime('%A, %B %e')}.\n"
     else
