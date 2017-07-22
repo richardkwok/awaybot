@@ -79,6 +79,8 @@ ics.events.each do |event|
         (return_day - today) * 60 * 60 * 24, weeks: true, format: :long, units: 2
       )
       msg += "#{first_name} is off today, returning in #{text_return}.\n"
+    elsif partial_day
+      msg += "#{first_name} is off part of today.\n"
     else
       msg += "#{first_name} is off today.\n"
     end
