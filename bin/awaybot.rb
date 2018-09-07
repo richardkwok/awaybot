@@ -59,10 +59,10 @@ ics.events.each do |event|
   if away_start > today
     if away_duration == 1 and partial_day
       msg += "#{first_name} is off for part of the day on" \
-        " #{away_start.strftime('%A, %B %e')}.\n"
+        " #{away_start.strftime('%A, %B %-d')}.\n"
     elsif away_duration == 1
       msg += "#{first_name} is off for the day on" \
-        " #{away_start.strftime('%A, %B %e')}.\n"
+        " #{away_start.strftime('%A, %B %-d')}.\n"
     else
       if today.strftime('%A') == away_start.strftime('%A')
         nxt = 'next '
@@ -70,8 +70,8 @@ ics.events.each do |event|
         nxt = ''
       end
       msg += "#{first_name} is off for #{away_duration} days starting" \
-        " #{nxt}#{away_start.strftime('%A, %B %e')} until" \
-        " #{away_end.strftime('%A, %B %e')}.\n"
+        " #{nxt}#{away_start.strftime('%A, %B %-d')} until" \
+        " #{away_end.strftime('%A, %B %-d')}.\n"
     end
   else
     if away_end - today > 0
