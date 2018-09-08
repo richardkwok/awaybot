@@ -87,7 +87,11 @@ ics.events.each do |event|
   end
 end
 
-if msg != '' && !today.saturday? && !today.sunday?
+if (msg == '')
+  msg = "No vacations planned. :briefcase:"
+end
+
+if !today.saturday? && !today.sunday?
   msg = ":city_sunrise: Good morning! Here's who's off for the next" \
     " #{cfg["#{type}_announce"]['look_forward_days']} days.\n#{msg}"
   puts msg
