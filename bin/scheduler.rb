@@ -1,5 +1,7 @@
 require 'rufus-scheduler'
-require_relative '../src/awaybot.rb'
+require './src/awaybot.rb'
+
+puts 'Starting scheduler...'
 
 scheduler = Rufus::Scheduler.new
 
