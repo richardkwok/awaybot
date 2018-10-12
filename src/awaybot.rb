@@ -9,11 +9,10 @@ require 'date'
 require 'pp'
 
 module AwayBot
-  def AwayBot.run()
+  def AwayBot.run(announcement_type)
     puts 'Running...'
     cfg = YAML.load_file('awaybot.yaml')
-    type = ARGV[0]
-    unless cfg.key? "#{type}_announce"
+    unless cfg.key? "#{announcement_type}_announce"
       puts "#{type} is not a known type of announcement."
       Kernel.exit 1
     end

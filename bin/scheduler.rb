@@ -7,9 +7,8 @@ puts 'Starting scheduler...'
 
 scheduler = Rufus::Scheduler.singleton
 
-scheduler.every '1s' do
-  AwayBot.test()
+scheduler.cron '0 9 * * *' do
+  AwayBot.run('major')
 end
-
 
 scheduler.join
