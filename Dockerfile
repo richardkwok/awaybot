@@ -6,4 +6,4 @@ COPY . .
 
 RUN bundle install
 
-CMD ["ruby", "bin/awaybot.rb", "major"]
+CMD ["ruby", "bin/scheduler.rb"]
