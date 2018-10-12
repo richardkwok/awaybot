@@ -1,1 +1,1 @@
-worker: ruby bin/scheduler.rb
+web: ruby bin/scheduler.rb
