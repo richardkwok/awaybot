@@ -1,1 +1,1 @@
-web: ruby bin/scheduler.rb
+clock: ruby bin/scheduler.rb
