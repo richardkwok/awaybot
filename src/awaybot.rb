@@ -99,7 +99,4 @@ module AwayBot
       slack.ping msg
     end
   end
-  def AwayBot.test()
-    puts 'testing'
-  end
 end
