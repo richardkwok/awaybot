@@ -1,1 +1,1 @@
-worker: ruby bin/awaybot.rb major
+worker: ruby bin/scheduler.rb
