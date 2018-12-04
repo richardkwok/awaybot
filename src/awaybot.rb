@@ -45,6 +45,11 @@ module AwayBot
       return_day += 1 while return_day.saturday? || return_day.sunday?
       away_range = away_start..away_end
       away_duration = (away_end - away_start).to_i + 1
+      # sometimes days shows up as hours, and this breaks partial_day analysis
+      if hour_match=(/([0-9\.]+) hour/.match event.summary)
+      days = (hour_match[1].to_i / 8.0).to_s + " day"
+      event.summary.gsub! hour_match[0], days
+      end
       # Can't tell a partial day from the dates, but it is in the summary
       partial_day = (/([0-9\.]+) day/.match event.summary)[1].to_i < 1
       # subtract any weekends from the duration
